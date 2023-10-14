@@ -1,10 +1,26 @@
-# barrel_files [![pub package](https://img.shields.io/pub/v/barrel_files.svg)](https://pub.dartlang.org/packages/barrel_files)
+[![pub package](https://img.shields.io/pub/v/barrel_files.svg)](https://pub.dartlang.org/packages/barrel_files)
+
+Generate barrel files for Dart and Flutter packages with `build_runner` based on code annotations.
 
 ## Motivation
 
+### Barrel files
+
+In Dart, visibility of a class, global variable or any other top-level element can be limited to a single library (single `.dart` file or a group of `.dart` files united with `part` and `part of` directives) by simply naming those elements with `_` prefix. This way, information about code visibility in as close to the code itself as possible.
+
+However, there is no similar mechanism to scope code elements visibility to a package where they are located, keeping them accessible to all the rest of the code in the same package, but making them inaccessible from outside. To reach the same effect, when creating a Dart or Flutter package, it is common to put all `.dart` files under the `/lib/src` folder and create a new `.dart` file under the `/lib` folder (usually named after the package), that contains `export` directives for files and Dart code elements that should be exposed from that package. These files are called "barrel files".
+
+This approach helps with encapsulation as users of these packages will get warnings if they import a file from the `/lib/src` folder instead of importing one of barrel files from the `/lib` folder. However, in this case the information about code visibility gets detached from the code itself and is controlled in a barrel file in a different location. 
+
+### Generated barrel files
+
+For packages that rely on code-generation with `build_runner`, it can be beneficial to use the `barrel_files` package to create barrel files based on annotations placed directly above code elements that should be visible outside those packages. 
+
+A special annotation to mark public code provides information about code visibility right where it is needed - next to the code itself!
+
 ## Usage
 
-### Add the dependency
+### Add dependencies
 
 Add `barrel_files_annotation` to `dependencies` and `barrel_files` to `dev_dependencies` section of the `pubspec.yaml` file:
 
@@ -64,7 +80,7 @@ export 'package:example_package/src/example_input.dart'
         exampleGlobalConst;
 ```
 
-By default, barre; file name will match the package name, `example_package` in the example above.
+By default, barrel file name matches the package name, `example_package` in the example above.
 
 To customize the generated file name (and possibly location), create or modify the `build.yaml` file located next to the `pubspec.yaml` file:
 
@@ -77,6 +93,8 @@ targets:
           barrel_file_name: "custom_example.dart"
 ```
 
-This setup will result in `lib/custom_example.dart` file  being created.
+This setup will result in `lib/custom_example.dart` barrel file  being created.
 
-For now, `barrel_files` only supports a single barrel file generation.
+## Constraints
+
+`barrel_files` supports only one barrel file generation.

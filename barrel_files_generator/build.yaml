@@ -1,0 +1,20 @@
+builders:
+  individual_barrel_files:
+    import: "package:barrel_files/barrel_files.dart"
+    builder_factories:
+      - individualBarrelFilesBuilder
+    build_extensions:
+      .dart:
+        - ".barrel"
+    auto_apply: dependents
+    build_to: cache
+    runs_before: [ "barrel_files|barrel_files" ]
+  barrel_files:
+    import: "package:barrel_files/barrel_files.dart"
+    builder_factories:
+      - barrelFilesBuilder
+    build_extensions:
+      $package$:
+        - "stub.barrel"
+    auto_apply: dependents
+    build_to: source

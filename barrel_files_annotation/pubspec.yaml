@@ -2,7 +2,7 @@ name: barrel_files_annotation
 description: Annotations for the barrel_files package
 publish_to: none
 
-version: 0.0.1+1
+version: 0.1.0
 
 environment:
   sdk: ^3.0.0

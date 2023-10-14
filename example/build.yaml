@@ -1,0 +1,6 @@
+targets:
+  $default:
+    builders:
+      barrel_files|barrel_files:
+        options:
+#          barrel_file_name: "custom_example.dart"

@@ -1,6 +1,7 @@
 name: barrel_files
 description: Barrel files generator
-publish_to: none
+repository: https://github.com/foxanna/barrel_files
+issue_tracker: https://github.com/foxanna/barrel_files/issues
 
 version: 0.1.0
 

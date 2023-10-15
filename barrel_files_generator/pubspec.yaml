@@ -1,5 +1,5 @@
 name: barrel_files
-description: Barrel files generator
+description: Generate barrel files for Dart and Flutter packages with build_runner based on code annotations
 repository: https://github.com/foxanna/barrel_files
 issue_tracker: https://github.com/foxanna/barrel_files/issues
 
@@ -11,8 +11,7 @@ environment:
 dependencies:
   analyzer: ^6.0.0
   build: ^2.4.1
-  barrel_files_annotation:
-    path: ../barrel_files_annotation
+  barrel_files_annotation: ^0.1.0
   code_builder: ^4.7.0
   dartx: ^1.2.0
   dart_style: ^2.3.3

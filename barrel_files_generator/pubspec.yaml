@@ -15,7 +15,7 @@ environment:
 dependencies:
   analyzer: ^6.0.0
   build: ^2.4.1
-  barrel_files_annotation: ^0.1.0
+  barrel_files_annotation: ^0.1.1
   code_builder: ^4.7.0
   dartx: ^1.2.0
   dart_style: ^2.3.3

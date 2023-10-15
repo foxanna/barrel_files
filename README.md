@@ -1,1 +1,1 @@
-# barrel_files
+barrel_files_generator/README.md

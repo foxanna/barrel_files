@@ -8,4 +8,5 @@ Builder individualBarrelFilesBuilder(BuilderOptions options) => LibraryBuilder(
   const IndividualBarrelFilesGenerator(),
   generatedExtension: '.barrel',
   options: options,
+  formatOutput: (code, _) => code,
 );

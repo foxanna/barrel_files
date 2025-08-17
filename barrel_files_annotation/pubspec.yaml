@@ -7,7 +7,7 @@ topics:
   - build-runner
   - codegen
 
-version: 0.1.1
+version: 0.2.0
 
 environment:
   sdk: ^3.7.0

@@ -7,7 +7,7 @@ topics:
   - build-runner
   - codegen
 
-version: 0.1.1
+version: 0.2.0
 
 environment:
   sdk: ^3.7.0
@@ -15,7 +15,7 @@ environment:
 dependencies:
   analyzer: ^7.0.0
   build: ^3.0.2
-  barrel_files_annotation: ^0.1.1
+  barrel_files_annotation: ^0.2.0
   code_builder: ^4.10.1
   dartx: ^1.2.0
   dart_style: ^3.1.1

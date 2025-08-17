@@ -135,10 +135,14 @@ Future<void> _createAndTestBuilder({
     fileSystem,
   );
 
+  final readerWriter = TestReaderWriter(rootPackage: _testPackageName);
+  await readerWriter.testing.loadIsolateSources();
+
   await testBuilder(
     builder,
     inputs,
     outputs: expectedOutputs,
+    readerWriter: readerWriter,
   );
 }
 
@@ -162,5 +166,5 @@ name: $_testPackageName
 version: 0.0.0+1
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.7.0
 ''';

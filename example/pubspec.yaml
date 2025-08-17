@@ -5,7 +5,7 @@ publish_to: none
 version: 0.0.1+1
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.7.0
 
 dependencies:
   barrel_files_annotation: ^0.1.1

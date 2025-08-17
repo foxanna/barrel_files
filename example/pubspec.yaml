@@ -12,5 +12,5 @@ dependencies:
 
 dev_dependencies:
   barrel_files: ^0.1.1
-  build_runner: ^2.4.6
-  flutter_lints: ^2.0.3
+  build_runner: ^2.7.0
+  flutter_lints: ^6.0.0

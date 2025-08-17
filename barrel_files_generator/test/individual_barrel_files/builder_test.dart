@@ -2,7 +2,7 @@ import 'package:barrel_files/src/individual_barrel_files/builder_factory.dart';
 
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
-import 'package:source_gen/source_gen.dart';
+import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -381,7 +381,7 @@ export 'package:$_testPackageName/src/example/test_3.dart' show ExampleClass;
   });
 
   group('individualBarrelFilesBuilder :: invalid inputs', () {
-    test('Unnamed annotated elements cause exception', () {
+    test('Unnamed annotated elements cause exception', () async {
       const inputFileName = '$_testPackageName|lib/test.dart';
       const inputFileContent = '''
 import 'package:barrel_files_annotation/barrel_files_annotation.dart';
@@ -396,9 +396,12 @@ extension on Example {
 
       const inputs = {inputFileName: inputFileContent};
 
-      expect(
-        () => _createAndTestBuilder(inputs: inputs),
-        throwsA(isA<InvalidGenerationSourceError>()),
+      await _createAndTestBuilder(
+        inputs: inputs,
+        expectedOutputs: <String, String>{},
+        expectedError:
+            '`@includeInBarrelFile` can only be used on elements with a name.\n'
+            'Cause: extension on Example',
       );
     });
   });
@@ -407,6 +410,7 @@ extension on Example {
 Future<void> _createAndTestBuilder({
   required Map<String, String> inputs,
   Map<String, String> expectedOutputs = const {},
+  String? expectedError,
 }) async {
   final builder = individualBarrelFilesBuilder(
     const BuilderOptions(<String, dynamic>{}),
@@ -415,12 +419,27 @@ Future<void> _createAndTestBuilder({
   final readerWriter = TestReaderWriter(rootPackage: _testPackageName);
   await readerWriter.testing.loadIsolateSources();
 
+  final logs = <LogRecord>[];
+
   await testBuilder(
     builder,
     inputs,
     outputs: expectedOutputs,
     readerWriter: readerWriter,
+    onLog: (log) => logs.add(log),
   );
+
+  if (expectedError != null) {
+    expect(
+      logs,
+      anyElement(
+        predicate<LogRecord>(
+          (log) =>
+              log.level == Level.SEVERE && log.message.contains(expectedError),
+        ),
+      ),
+    );
+  }
 }
 
 const _testPackageName = 'test_package';

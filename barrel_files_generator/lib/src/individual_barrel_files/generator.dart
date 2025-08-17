@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:barrel_files_annotation/barrel_files_annotation.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
@@ -11,19 +11,24 @@ import 'package:source_gen/source_gen.dart';
 class IndividualBarrelFilesGenerator implements Generator {
   const IndividualBarrelFilesGenerator();
 
+  static const _annotation = TypeChecker.typeNamed(
+    IncludeInBarrelFile,
+    inPackage: 'barrel_files_annotation',
+  );
+
   @override
   FutureOr<String?> generate(
     LibraryReader library,
     BuildStep buildStep,
   ) {
     final annotatedTopLevelElements = library
-        .annotatedWith(const TypeChecker.fromRuntime(IncludeInBarrelFile))
+        .annotatedWith(_annotation)
         .toList();
 
     final elementsNames = annotatedTopLevelElements
         .map(
-          (annotatedElement) => annotatedElement.element.name.isNotNullOrEmpty
-              ? annotatedElement.element.name!
+          (annotatedElement) => annotatedElement.element.name3.isNotNullOrEmpty
+              ? annotatedElement.element.name3!
               : throw UnnamedGenerationSourceError(annotatedElement.element),
         )
         .toList();
@@ -58,11 +63,13 @@ String _composeExport({
   );
 
   final source = library.accept(DartEmitter()).toString();
-  return DartFormatter().format(source);
+  return DartFormatter(
+    languageVersion: DartFormatter.latestLanguageVersion,
+  ).format(source);
 }
 
 class UnnamedGenerationSourceError extends InvalidGenerationSourceError {
-  UnnamedGenerationSourceError(Element element)
+  UnnamedGenerationSourceError(Element2 element)
       : super(
           "`@includeInBarrelFile` can only be used on elements with a name.",
           element: element,

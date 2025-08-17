@@ -21,17 +21,20 @@ class IndividualBarrelFilesGenerator implements Generator {
     LibraryReader library,
     BuildStep buildStep,
   ) {
-    final annotatedTopLevelElements = library
-        .annotatedWith(_annotation)
-        .toList();
+    final annotatedTopLevelElements =
+        library.annotatedWith(_annotation).toList();
 
-    final elementsNames = annotatedTopLevelElements
-        .map(
-          (annotatedElement) => annotatedElement.element.name3.isNotNullOrEmpty
-              ? annotatedElement.element.name3!
-              : throw UnnamedGenerationSourceError(annotatedElement.element),
-        )
-        .toList();
+    final elementsNames =
+        annotatedTopLevelElements
+            .map(
+              (annotatedElement) =>
+                  annotatedElement.element.name3.isNotNullOrEmpty
+                      ? annotatedElement.element.name3!
+                      : throw UnnamedGenerationSourceError(
+                        annotatedElement.element,
+                      ),
+            )
+            .toList();
 
     final export = _composeOutput(buildStep.inputId, elementsNames);
     return export;
@@ -70,8 +73,8 @@ String _composeExport({
 
 class UnnamedGenerationSourceError extends InvalidGenerationSourceError {
   UnnamedGenerationSourceError(Element2 element)
-      : super(
-          "`@includeInBarrelFile` can only be used on elements with a name.",
-          element: element,
-        );
+    : super(
+        "`@includeInBarrelFile` can only be used on elements with a name.",
+        element: element,
+      );
 }

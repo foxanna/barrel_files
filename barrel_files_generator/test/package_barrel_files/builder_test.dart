@@ -29,8 +29,7 @@ void main() {
   });
 
   group('barrelFilesBuilder :: valid outputs', () {
-    test(
-        'export directives from all all .barrel files '
+    test('export directives from all all .barrel files '
         'are composed to a single .dart file', () async {
       const inputFileName1 = '$_testPackageName|lib/test_1.barrel';
       const inputFileContent1 = '''$_individualBarrelFileHeader

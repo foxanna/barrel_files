@@ -53,8 +53,7 @@ const i = 0;
   });
 
   group('individualBarrelFilesBuilder :: valid outputs', () {
-    test(
-        'Inputs with a single annotated element '
+    test('Inputs with a single annotated element '
         'produce a single export directive '
         'with a single exposed element', () async {
       const inputFileName1 = '$_testPackageName|lib/test_1.dart';
@@ -144,8 +143,7 @@ export 'package:$_testPackageName/test_5.dart' show ExampleTypeDef;
       );
     });
 
-    test(
-        'Inputs with a multiple annotated elements '
+    test('Inputs with a multiple annotated elements '
         'produce a single export directive with '
         'all elements exposed and sorted alphabetically', () async {
       const inputFileName1 = '$_testPackageName|lib/test_1.dart';
@@ -219,11 +217,12 @@ export 'package:$_testPackageName/test_3.dart'
     });
 
     test(
-        'Inputs with a mix of multiple annotated elements and non-annotated elements '
-        'produce a single export directive with '
-        'only annotated elements exposed and sorted alphabetically', () async {
-      const inputFileName1 = '$_testPackageName|lib/test_1.dart';
-      const inputFileContent1 = '''
+      'Inputs with a mix of multiple annotated elements and non-annotated elements '
+      'produce a single export directive with '
+      'only annotated elements exposed and sorted alphabetically',
+      () async {
+        const inputFileName1 = '$_testPackageName|lib/test_1.dart';
+        const inputFileContent1 = '''
 import 'package:barrel_files_annotation/barrel_files_annotation.dart';
 
 @includeInBarrelFile
@@ -235,13 +234,13 @@ class ExampleClass3 {}
 class ExampleClass1 {}
 ''';
 
-      const expectedOutputFileName1 = '$_testPackageName|lib/test_1.barrel';
-      const expectedOutputFileContent1 = '''$_header
+        const expectedOutputFileName1 = '$_testPackageName|lib/test_1.barrel';
+        const expectedOutputFileContent1 = '''$_header
 export 'package:$_testPackageName/test_1.dart' show ExampleClass1, ExampleClass2;
 ''';
 
-      const inputFileName2 = '$_testPackageName|lib/test_2.dart';
-      const inputFileContent2 = '''
+        const inputFileName2 = '$_testPackageName|lib/test_2.dart';
+        const inputFileContent2 = '''
 import 'package:barrel_files_annotation/barrel_files_annotation.dart';
 
 @includeInBarrelFile
@@ -257,29 +256,29 @@ extension on ExampleEnum {
 }
 ''';
 
-      const expectedOutputFileName2 = '$_testPackageName|lib/test_2.barrel';
-      const expectedOutputFileContent2 = '''$_header
+        const expectedOutputFileName2 = '$_testPackageName|lib/test_2.barrel';
+        const expectedOutputFileContent2 = '''$_header
 export 'package:$_testPackageName/test_2.dart' show ExampleEnum, exampleFunction;
 ''';
 
-      const inputs = {
-        inputFileName1: inputFileContent1,
-        inputFileName2: inputFileContent2,
-      };
+        const inputs = {
+          inputFileName1: inputFileContent1,
+          inputFileName2: inputFileContent2,
+        };
 
-      const expectedOutputs = {
-        expectedOutputFileName1: expectedOutputFileContent1,
-        expectedOutputFileName2: expectedOutputFileContent2,
-      };
+        const expectedOutputs = {
+          expectedOutputFileName1: expectedOutputFileContent1,
+          expectedOutputFileName2: expectedOutputFileContent2,
+        };
 
-      await _createAndTestBuilder(
-        inputs: inputs,
-        expectedOutputs: expectedOutputs,
-      );
-    });
+        await _createAndTestBuilder(
+          inputs: inputs,
+          expectedOutputs: expectedOutputs,
+        );
+      },
+    );
 
-    test(
-        'Input with a "part" file with multiple annotated elements '
+    test('Input with a "part" file with multiple annotated elements '
         'produce a single export directive with '
         'all elements exposed and sorted alphabetically', () async {
       const inputFileName1 = '$_testPackageName|lib/test_1.dart';

@@ -9,10 +9,9 @@ class PackageBarrelFilesBuilder implements Builder {
   factory PackageBarrelFilesBuilder(
     Map<String, dynamic> config,
     FileSystem? fileSystem,
-  ) =>
-      PackageBarrelFilesBuilder._(
-        _getBarrelFilePath(config, fileSystem),
-      );
+  ) => PackageBarrelFilesBuilder._(
+    _getBarrelFilePath(config, fileSystem),
+  );
 
   const PackageBarrelFilesBuilder._(this._barrelFilePath);
 
@@ -27,10 +26,12 @@ class PackageBarrelFilesBuilder implements Builder {
     final contents = await Future.wait(
       assets.map((assetId) => buildStep.readAsString(assetId)),
     );
-    final truncatedContents = contents
-        .map((content) => content.substring(content.indexOf('export')))
-        .toList();
-    final barrelFileContent = '$_barrelFileHeader\n\n'
+    final truncatedContents =
+        contents
+            .map((content) => content.substring(content.indexOf('export')))
+            .toList();
+    final barrelFileContent =
+        '$_barrelFileHeader\n\n'
         '${truncatedContents.sorted().join('')}';
 
     return buildStep.writeAsString(
@@ -41,15 +42,15 @@ class PackageBarrelFilesBuilder implements Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-        r'$package$': [_barrelFilePath]
-      };
+    r'$package$': [_barrelFilePath],
+  };
 
   static String _getBarrelFilePath(
     Map<String, dynamic> config,
     FileSystem? fileSystem,
   ) {
-    final barrelFileNameFromConfig =
-        (config['barrel_file_name'] as String?)?.removeSuffix('.dart');
+    final barrelFileNameFromConfig = (config['barrel_file_name'] as String?)
+        ?.removeSuffix('.dart');
     final barrelFileName =
         barrelFileNameFromConfig ?? _getPackageName(fileSystem);
     final barrelFilePath = 'lib/$barrelFileName.dart';

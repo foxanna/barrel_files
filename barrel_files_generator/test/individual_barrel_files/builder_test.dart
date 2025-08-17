@@ -412,11 +412,14 @@ Future<void> _createAndTestBuilder({
     const BuilderOptions(<String, dynamic>{}),
   );
 
+  final readerWriter = TestReaderWriter(rootPackage: _testPackageName);
+  await readerWriter.testing.loadIsolateSources();
+
   await testBuilder(
     builder,
     inputs,
     outputs: expectedOutputs,
-    reader: await PackageAssetReader.currentIsolate(),
+    readerWriter: readerWriter,
   );
 }
 

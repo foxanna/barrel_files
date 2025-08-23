@@ -8,9 +8,9 @@ environment:
   sdk: ^3.7.0
 
 dependencies:
-  barrel_files_annotation: ^0.2.0
+  barrel_files_annotation: ^0.3.0
 
 dev_dependencies:
-  barrel_files: ^0.2.0
+  barrel_files: ^0.3.0
   build_runner: ^2.7.0
   flutter_lints: ^6.0.0

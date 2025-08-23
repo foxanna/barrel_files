@@ -1,3 +1,7 @@
+### 0.3.0
+
+* Update `analyzer` to `^8.1.1`
+
 ### 0.2.0
 
 * Update `source_gen` to `^3.0.0`

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:barrel_files_annotation/barrel_files_annotation.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
@@ -28,8 +28,8 @@ class IndividualBarrelFilesGenerator implements Generator {
         annotatedTopLevelElements
             .map(
               (annotatedElement) =>
-                  annotatedElement.element.name3.isNotNullOrEmpty
-                      ? annotatedElement.element.name3!
+                  annotatedElement.element.name.isNotNullOrEmpty
+                      ? annotatedElement.element.name!
                       : throw UnnamedGenerationSourceError(
                         annotatedElement.element,
                       ),
@@ -72,7 +72,7 @@ String _composeExport({
 }
 
 class UnnamedGenerationSourceError extends InvalidGenerationSourceError {
-  UnnamedGenerationSourceError(Element2 element)
+  UnnamedGenerationSourceError(Element element)
     : super(
         "`@includeInBarrelFile` can only be used on elements with a name.",
         element: element,
